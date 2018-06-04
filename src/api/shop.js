@@ -9,16 +9,15 @@ const _products = [
 
 export default {
   getProducts (cb) {
-    setTimeout(() => cb(_products), 100)
+    setTimeout(() => cb(_products), 500)
   },
 
   buyProducts (products, cb, errorCb) {
     setTimeout(() => {
       // simulate random checkout failure.
-      /*(Math.random() > 0.5 || navigator.userAgent.indexOf('PhantomJS') > -1)
+      (Math.random() > 0.5 || navigator.userAgent.indexOf('PhantomJS') > -1)
         ? cb()
-        : errorCb()*/
-      cb()
+        : errorCb()
     }, 100)
   }
 }

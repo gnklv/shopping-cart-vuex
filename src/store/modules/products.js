@@ -8,29 +8,29 @@ export default {
   },
 
   getters: {
-    availableProducts(state) {
-      return state.items.filter(product => product.inventory > 0);
+    availableProducts: state => {
+      state.items.filter(product => product.inventory > 0);
     },
 
-    productIsInStock() {
-      return (product) => {
-        return product.inventory > 0
-      }
-    }
+    productIsInStock: () => product => product.inventory > 0
   },
 
   mutations: {
-    setProducts(state, products) {
+    setProducts: (state, products) => {
       state.items = products
     },
 
-    decrementProductInventory(state, product) {
+    decrementProductInventory: (state, product) => {
       product.inventory--
+    },
+
+    updateProductInventory: (state, [product, inventory]) => {
+      product.inventory += inventory
     }
   },
 
   actions: {
-    fetchProducts({ commit }) {
+    fetchProducts: ({ commit }) => {
       return new Promise((resolve) => {
         shop.getProducts(products => {
           commit('setProducts', products);

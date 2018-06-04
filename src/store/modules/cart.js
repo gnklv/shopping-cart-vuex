@@ -10,7 +10,7 @@ export default {
   },
 
   getters: {
-    cartProducts(state, getters, rootState) {
+    cartProducts: (state, getters, rootState) => {
       return state.items.map(cartItem => {
         const product = rootState.products.items.find(product => product.id === cartItem.id);
         return {
@@ -21,34 +21,32 @@ export default {
       })
     },
 
-    cartTotal(state, getters) {
-      return getters.cartProducts.reduce((total, product) => total + product.price * product.quantity, 0)
-    }
+    cartTotal: (state, getters) => getters.cartProducts.reduce((total, product) => total + product.price * product.quantity, 0)
   },
 
   mutations: {
-    pushProductToCart(state, productId) {
+    pushProductToCart: (state, productId) => {
       state.items.push({
         id: productId,
         quantity: 1
       })
     },
 
-    incrementItemQuality(state, cartItem) {
+    incrementItemQuality: (state, cartItem) => {
       cartItem.quantity++
     },
 
-    setCheckoutStatus(state, status) {
+    setCheckoutStatus: (state, status) => {
       state.checkoutStatus = status
     },
 
-    emptyCart(state) {
+    emptyCart: (state) => {
       state.items = []
-    }
+    },
   },
 
   actions: {
-    addProductToCart({ state, commit, rootGetters }, product) {
+    addProductToCart: ({ state, commit, rootGetters }, product) => {
       if (rootGetters['products/productIsInStock'](product)) {
         const cartItem = state.items.find(item => item.id === product.id);
         if (!cartItem) {
@@ -60,11 +58,15 @@ export default {
       }
     },
 
-    checkout({ state, commit }) {
+    checkout: ({ state, commit, rootState }) => {
       shop.buyProducts(
         state.items,
         () => {
           if (state.items.length > 0) {
+            state.items.forEach((item) => {
+              const product = rootState.products.items.find(product => product.id === item.id);
+              commit('products/updateProductInventory', [product, item.quantity], { root: true });
+            });
             commit('emptyCart');
             commit('setCheckoutStatus', 'success');
           }

@@ -16,7 +16,7 @@
   import { mapState, mapGetters, mapActions } from 'vuex';
 
   export default {
-    name: "ShoppingCart",
+    name: 'ShoppingCart',
     computed: {
       ...mapState('cart', {
         checkoutStatus: state => state.checkoutStatus

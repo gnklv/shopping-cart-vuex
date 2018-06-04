@@ -21,7 +21,7 @@
   import { mapState, mapGetters, mapActions } from 'vuex';
 
   export default {
-    name: "ProductList",
+    name: 'ProductList',
 
     data: () => ({
       loading: false
