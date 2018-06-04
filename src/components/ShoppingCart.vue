@@ -7,7 +7,7 @@
       </li>
     </ul>
     <p>Total: {{ total | currency}}</p>
-    <button @click="checkout">Checkout</button>
+    <button @click="CHECKOUT">Checkout</button>
     <p v-if="checkoutStatus">{{ checkoutStatus }}</p>
   </div>
 </template>
@@ -19,15 +19,15 @@
     name: 'ShoppingCart',
     computed: {
       ...mapState('cart', {
-        checkoutStatus: state => state.checkoutStatus
+        checkoutStatus: state => state.checkout_status
       }),
       ...mapGetters('cart', {
-        products: 'cartProducts',
-        total: 'cartTotal'
+        products: 'GET_CART_PRODUCTS',
+        total: 'GET_CART_TOTAL'
       })
     },
     methods: {
-      ...mapActions('cart', ['checkout'])
+      ...mapActions('cart', ['CHECKOUT'])
     }
   }
 </script>

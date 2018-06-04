@@ -1,0 +1,16 @@
+import getters from './getters';
+import mutations from './mutations';
+import actions from './actions';
+
+export default {
+  namespaced: true,
+
+  state: {
+    // {id, quantity}
+    items: [],
+    checkout_status: null
+  },
+  getters,
+  mutations,
+  actions
+}

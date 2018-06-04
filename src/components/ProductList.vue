@@ -33,14 +33,14 @@
       }),
 
       ...mapGetters('products', {
-        productIsInStock: 'productIsInStock'
+        productIsInStock: 'GET_PRODUCTS_IS_IN_STOCK'
       })
     },
 
     methods: {
       ...mapActions({
-        fetchProducts: 'products/fetchProducts',
-        addProductToCart: 'cart/addProductToCart'
+        fetchProducts: 'products/FETCH_PRODUCTS',
+        addProductToCart: 'cart/ADD_PRODUCT_TO_CART'
       }),
     },
 
